@@ -1,0 +1,19 @@
+在.git目录下有一个config文件， 需要我们添加一下个人信息后才能使用。否则我们不能对其中添加和修改任何文件。
+    原始的config文件是这样的，
+cd .git
+vi config
+
+[core]
+        repositoryformatversion = 0
+        filemode = true
+        bare = false
+        logallrefupdates = true
+我们需要加入
+[user] 
+        name = xxx
+        emai= xxx@kuxun.cn
+
+
+
+git push -u origin master
+如果在 git网站上没有开辟一个分支   需要先这样开一个分支
