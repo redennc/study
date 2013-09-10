@@ -1,0 +1,51 @@
+create table privilege
+(
+id int(11) primary key auto_increment,
+name varchar(100) not null unique,
+description varchar(255)
+);
+
+create table resource
+(
+id int(11) primary key auto_increment,
+uri varchar(255) not null unique,
+privilege_id int(11),
+description varchar(255),
+constraint privilege_id_FK foreign key(privilege_id) references privilege(id)
+);
+
+create table role
+(
+id int(11) primary key auto_increment,
+name varchar(100),
+description varchar(255)
+);
+
+create table user
+(
+id int(11) primary key auto_increment,
+username varchar(40),
+password varchar(40),
+description varchar(255)
+);
+
+create table role_privilege
+(
+role_id int(11),
+privilege_id int(11),
+primary key(role_id,privilege_id),
+constraint role_id_FK foreign key(role_id) references role(id) ON DELETE CASCADE,
+constraint privilege_id_FK2 foreign key(privilege_id) references privilege(id) ON DELETE CASCADE
+);
+
+create table role_user
+(
+role_id int(11),
+user_id int(11),
+primary key(role_id,user_id),
+constraint role_id_FK2 foreign key(role_id) references role(id) ON DELETE CASCADE,
+constraint user_id_FK foreign key(user_id) references user(id) ON DELETE CASCADE
+);
+
+
+
