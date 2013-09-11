@@ -15,7 +15,7 @@
 	         资源描述:<textarea cols="20" rows="2" name="description" ></textarea><br/>
 	        所属权限: 
 	  	<c:forEach items="${plist}" var="p">
-	  		${p.name} <input type="radio" name="privilege" value="${p}" > &nbsp;&nbsp;
+	  		${p.name} <input type="radio" name="privilege" value='{"id":"${p.id}","name":"${p.name}","description":"${p.description}"}' > &nbsp;&nbsp;
 	  	</c:forEach>  
 	    <input type="submit" value="提交" >
 	  </form>  

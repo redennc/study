@@ -23,7 +23,7 @@ public class RoleServlet extends HttpServlet {
 		
 		if("addUI".equals(method))
 		{
-			request.getRequestDispatcher("/security/addprivilege.jsp").forward(request, response);
+			request.getRequestDispatcher("/security/addrole.jsp").forward(request, response);
 		}
 		
 		if("getAll".equals(method))
@@ -42,7 +42,7 @@ public class RoleServlet extends HttpServlet {
 	private void getAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Privilege> list = service.getAllPrivilege();
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/security/listprivilege.jsp").forward(request, response);
+		request.getRequestDispatcher("/security/listrole.jsp").forward(request, response);
 	}
 
 
@@ -51,11 +51,11 @@ public class RoleServlet extends HttpServlet {
 		try{
 			Privilege privilege = WebUtils.request2Bean(request, Privilege.class);
 			service.addPrivilege(privilege);
-			request.setAttribute("message", "权限添加成功");
+			request.setAttribute("message", "角色添加成功");
 			
 		}catch(Exception e){
 			e.printStackTrace();
-			request.setAttribute("message", "权限添加失败");
+			request.setAttribute("message", "角色添加失败");
 		}
 		request.getRequestDispatcher("/message.jsp").forward(request, response);
 	}

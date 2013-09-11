@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -21,14 +21,14 @@
    		</tr>
    	</table>
   
-	<table width="300px" align="center" border="1">
+	<table width="600px" align="center" border="1">
 		<tr>
-			<td width="40%"> 资源名称 </td> <td>资源描述</td> <td>所属权限</td>
+			<td width="20%"> 资源名称 </td> <td>资源描述</td> <td>所属权限</td>
 		</tr>
 		
 		<c:forEach items="${list}" var="r">
 		<tr>
-			<td width="20%"> ${r.name} </td> <td>${r.description}</td> <td>${r.privilege.name}</td>
+			<td width="20%"> ${r.uri} </td> <td>${r.description}</td> <td>${r.privilege.name}</td>
 		</tr>
 		</c:forEach>
 		

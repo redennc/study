@@ -62,7 +62,7 @@ public class ResourceServlet extends HttpServlet {
 
 
 	private void getAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Privilege> list = service.getAllPrivilege();
+		List<Resource> list = service.getAllResource();
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/security/listresource.jsp").forward(request, response);
 		
