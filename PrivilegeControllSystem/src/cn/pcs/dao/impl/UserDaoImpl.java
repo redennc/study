@@ -17,13 +17,13 @@ import cn.pcs.utils.JdbcUtils;
 public class UserDaoImpl {
 
 	
-	public User find(String username, String password)
+	public User find(int id)
 	{
 		
 		try {
 			QueryRunner qr = new QueryRunner(JdbcUtils.getDataSource());
-			String sql = "select * from user where username=?";
-			User user = (User) qr.query(sql, username, new BeanHandler(User.class));
+			String sql = "select * from user where id=?";
+			User user = (User) qr.query(sql, id, new BeanHandler(User.class));
 						
 			return user;
 		} catch (SQLException e) {

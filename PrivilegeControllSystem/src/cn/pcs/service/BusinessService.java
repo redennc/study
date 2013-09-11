@@ -17,9 +17,9 @@ public class BusinessService {
 	private ResourceDaoImpl rdao = new ResourceDaoImpl();
 	private RoleDaoImpl rodao = new RoleDaoImpl();
 	
-	public User findUser(String username, String password)
+	public User findUser(User user)
 	{
-		return udao.find(username, password);
+		return udao.find(user.getId());
 	}
 	public List<User> getAllUser()
 	{

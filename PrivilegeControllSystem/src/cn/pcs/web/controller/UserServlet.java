@@ -25,9 +25,9 @@ public class UserServlet extends HttpServlet {
 
 		String method = request.getParameter("method");
 		
-		if("addUI".equals(method))
+		if("updateUI".equals(method))  
 		{
-			addUI(request, response);
+			updateUI(request, response);
 		}
 		
 		if("getAll".equals(method))
@@ -35,19 +35,20 @@ public class UserServlet extends HttpServlet {
 			getAll(request, response);
 		}
 		
-		if("add".equals(method))
+		/*if("add".equals(method))
 		{
 			add(request, response);
-		}
+		}*/
 		
 	}
 
 
-	private void addUI(HttpServletRequest request, HttpServletResponse response)
+	private void updateUI(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Privilege> list = service.getAllPrivilege();
+		User user = WebUtils.request2Bean(request, User.class);
+		List<Privilege> list = service.getUser(user);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/security/addrole.jsp").forward(request, response);
+		request.getRequestDispatcher("/security/adduser.jsp").forward(request, response);
 	}
 
 
@@ -58,31 +59,7 @@ public class UserServlet extends HttpServlet {
 	}
 
 
-	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		try{
-			Role role = WebUtils.request2Bean(request, Role.class);
-			
-			String[] pids = request.getParameterValues("pid");
-			Set<Privilege> set = new HashSet<Privilege>();
-			for(String pid : pids)
-			{
-				Privilege p = new Privilege();
-				p.setId(Integer.parseInt(pid));
-				set.add(p);
-			}
-			role.setPrivilege(set);
-			
-			service.addRole(role);
-			request.setAttribute("message", "角色添加成功");
-			
-		}catch(Exception e){
-			e.printStackTrace();
-			request.setAttribute("message", "角色添加失败");
-		}
-		request.getRequestDispatcher("/message.jsp").forward(request, response);
-	}
-
+	
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

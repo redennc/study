@@ -10,19 +10,10 @@
   </head>
   
   <body>
-  	<table width="60%">
-   		<tr>
-   			<td></td>
-   			<td></td>
-   			<td align="right">
-   				<a href="${pageContext.request.contextPath }/servlet/UserServlet?method=addUI">添加用户</a>
-   			</td>
-   		</tr>
-   	</table>
   
 	<table width="500px" align="center" border="1">
 		<tr>
-			<td width="30%"> 用户名称 </td> <td>用户描述</td> <td>所属角色</td> 
+			<td width="30%"> 用户名称 </td> <td>用户描述</td> <td>所属角色</td> <td>修改权限</td>
 		</tr>
 		
 		<c:forEach items="${list}" var="u">
@@ -34,6 +25,7 @@
 				</c:forEach>
 	
 			</td>
+			<td> <a href="${pageContext.request.contextPath }/servlet/UserServlet?method=updateUI&id=${u.id}">修改</a> </td>
 		</tr>
 		</c:forEach>
 		
