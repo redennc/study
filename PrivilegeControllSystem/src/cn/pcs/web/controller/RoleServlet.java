@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.pcs.domain.Privilege;
+import cn.pcs.domain.Role;
 import cn.pcs.service.BusinessService;
 import cn.pcs.utils.WebUtils;
 
@@ -23,7 +24,7 @@ public class RoleServlet extends HttpServlet {
 		
 		if("addUI".equals(method))
 		{
-			request.getRequestDispatcher("/security/addrole.jsp").forward(request, response);
+			addUI(request, response);
 		}
 		
 		if("getAll".equals(method))
@@ -39,8 +40,16 @@ public class RoleServlet extends HttpServlet {
 	}
 
 
-	private void getAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void addUI(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		List<Privilege> list = service.getAllPrivilege();
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/security/addrole.jsp").forward(request, response);
+	}
+
+
+	private void getAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Role> list = service.getAllRole();
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/security/listrole.jsp").forward(request, response);
 	}
@@ -49,8 +58,8 @@ public class RoleServlet extends HttpServlet {
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		try{
-			Privilege privilege = WebUtils.request2Bean(request, Privilege.class);
-			service.addPrivilege(privilege);
+			Role role = WebUtils.request2Bean(request, Role.class);
+			service.addRole(role);
 			request.setAttribute("message", "角色添加成功");
 			
 		}catch(Exception e){

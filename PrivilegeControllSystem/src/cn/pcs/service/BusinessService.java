@@ -26,6 +26,7 @@ public class BusinessService {
 	{
 		pdao.add(p);
 	}
+	//获得 所有的权限 
 	public List<Privilege> getAllPrivilege()
 	{
 		return pdao.getAll();
@@ -46,4 +47,13 @@ public class BusinessService {
 	{
 		return rodao.getAll();
 	}
+	public void addRole(Role role) 
+	{
+		rodao.add(role);
+	}
 }
+
+
+
+
+
