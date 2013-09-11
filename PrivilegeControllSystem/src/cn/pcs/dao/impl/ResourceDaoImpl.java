@@ -13,8 +13,8 @@ import cn.pcs.domain.Resource;
 import cn.pcs.utils.JdbcUtils;
 
 public class ResourceDaoImpl {
-	@Test
-	public void getAll()
+	
+	public List<Resource> getAll()
 	{
 		try {
 			QueryRunner qr = new QueryRunner(JdbcUtils.getDataSource());
@@ -27,9 +27,22 @@ public class ResourceDaoImpl {
 				Privilege p =  (Privilege) qr.query(sql, r.getId(), new BeanHandler(Privilege.class));
 				r.setPrivilege(p);
 			}
+			return rList;
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public void add(Resource resource) {
+		try {
+			QueryRunner qr = new QueryRunner(JdbcUtils.getDataSource());
+			String sql = "insert into resource(uri,privilege_id,description) values(?,?,?)";
+			Object[] params = {resource.getUri(), resource.getPrivilege().getId(), resource.getDescription()};		
+			qr.update(sql, params);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 }
