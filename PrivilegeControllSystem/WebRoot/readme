@@ -9,7 +9,7 @@ create table resource
 (
 id int(11) primary key auto_increment,
 uri varchar(255) not null unique,
-privilege_id int(11),
+privilege_id int(11) unique,  #资源 与 权限 是 一对一
 description varchar(255),
 constraint privilege_id_FK foreign key(privilege_id) references privilege(id)
 );
