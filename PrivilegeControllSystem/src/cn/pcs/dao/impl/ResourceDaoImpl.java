@@ -2,11 +2,12 @@ package cn.pcs.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.junit.Test;
+import org.apache.commons.dbutils.handlers.MapHandler;
 
 import cn.pcs.domain.Privilege;
 import cn.pcs.domain.Resource;
@@ -44,5 +45,29 @@ public class ResourceDaoImpl {
 			throw new RuntimeException(e);
 		}
 		
+	}
+
+	
+	public Resource find(String uri) {
+		try {
+			QueryRunner qr = new QueryRunner(JdbcUtils.getDataSource());
+			String sql = "select * from resource where uri=?";
+			Map<String,String> map = (Map<String,String>) qr.query(sql, uri, new MapHandler());
+
+			if(map != null)
+			{
+				Resource r = new Resource();
+				r.setDescription(map.get("description"));
+				r.setId(Integer.parseInt(map.get("id")));
+				r.setUri(map.get("uri"));
+				Privilege p =new Privilege();
+				p.setId(Integer.parseInt(map.get("privilege_id")));
+				r.setPrivilege(p);
+				return r;
+			}
+			return null;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

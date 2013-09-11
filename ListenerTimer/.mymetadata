@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ListenerTimer"
+  id="myeclipse.1378725206036"
+  context-root="/ListenerTimer"
+  j2ee-spec="5.0"
+  archive="ListenerTimer.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

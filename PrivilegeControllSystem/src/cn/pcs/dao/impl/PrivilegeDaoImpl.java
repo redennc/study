@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import cn.pcs.domain.Privilege;
@@ -35,6 +36,8 @@ public class PrivilegeDaoImpl {
 			throw new RuntimeException(e);
 		}
 	}
+
+
 }
 
 

@@ -4,8 +4,8 @@
 <c3p0-config>
 	<default-config>
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
-		<property name="jdbcUrl">jdbc:mysql://192.168.1.45:3306/privilegesystemdb?useUnicode=true&amp;characterEncoding=UTF-8</property>
-		<!-- <property name="jdbcUrl">jdbc:mysql://localhost:3306/privilegesystemdb?useUnicode=true&amp;characterEncoding=UTF-8</property> -->
+		<!-- <property name="jdbcUrl">jdbc:mysql://192.168.1.45:3306/privilegesystemdb?useUnicode=true&amp;characterEncoding=UTF-8</property> -->
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/privilegesystemdb?useUnicode=true&amp;characterEncoding=UTF-8</property>
 		<property name="user">root</property>
 		<property name="password">rootpasswd</property>
 		

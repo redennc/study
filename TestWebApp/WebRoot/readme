@@ -1,0 +1,45 @@
+包:
+DaoImpl
+dao
+service
+webController 
+
+jdbc连接池
+工厂模式
+session cookie
+
+
+create table users
+(
+id int(11) primary key not null,
+name varchar(50) UNIQUE not null,
+password varchar(50) not null,
+hobby varchar(50) not null,
+nikename varchar(50)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+
+
+id parentid name
+1  xx       xx
+
+rootid=id (select id from xx where pid=null limit 1);
+
+Linkedlist<integer,Linkedlist> list = new Linkedlist();
+list.add(rootid,null)
+
+queryresult = (select * from xx where pid=rootid);
+while(qr.next)
+{
+	Linkedlist<integer,Linkedlist> list2 = new Linkedlist();
+	list2.add(qr.getInt(id),null);
+}
+list.modfi(rootid,list2);
+
+
+
+
+
+
+

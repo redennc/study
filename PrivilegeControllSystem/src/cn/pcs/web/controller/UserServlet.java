@@ -1,6 +1,7 @@
 package cn.pcs.web.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,21 +26,48 @@ public class UserServlet extends HttpServlet {
 
 		String method = request.getParameter("method");
 		
-		if("updateUI".equals(method))  
-		{
-			updateUI(request, response);
-		}
 		
 		if("getAll".equals(method))
 		{
 			getAll(request, response);
+			return;
 		}
 		
-		/*if("add".equals(method))
+		if("updateUI".equals(method))  
 		{
-			add(request, response);
-		}*/
+			updateUI(request, response);
+			return;
+		}
 		
+		if("update".equals(method))
+		{
+			update(request, response);
+			return;
+		}
+		
+	}
+
+
+	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try{
+			User u = WebUtils.request2Bean(request, User.class);
+			User user = service.findUser(u);
+			String[] role_ids = request.getParameterValues("rid");
+			Set<Role> set = new HashSet<Role>();
+			for(String rid : role_ids)
+			{
+				Role role = new Role();
+				role.setId(Integer.parseInt(rid));
+				set.add(role);
+			}
+			user.setRole(set);
+			service.updateUser(user);
+			request.setAttribute("message", "更新成功");	
+		}catch(Exception e){
+			e.printStackTrace();
+			request.setAttribute("message", "更新失败");			
+		}
+		request.getRequestDispatcher("/message.jsp").forward(request, response);
 	}
 
 
@@ -47,8 +75,10 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		User u = WebUtils.request2Bean(request, User.class);
 		User user = service.findUser(u);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("/security/adduser.jsp").forward(request, response);
+		request.setAttribute("user", user);
+		List<Role> rlist = service.getAllRole();
+		request.setAttribute("rlist", rlist);
+		request.getRequestDispatcher("/security/updateuser.jsp").forward(request, response);
 	}
 
 

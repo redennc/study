@@ -21,11 +21,19 @@ public class BusinessService {
 	{
 		return udao.find(user.getId());
 	}
+	public User findUser(String username, String password)
+	{
+		return udao.find(username, password);
+	}
+	public void updateUser(User user) 
+	{	
+		udao.update(user);
+	}
 	public List<User> getAllUser()
 	{
 		return udao.getAll();
 	}
-	
+
 	
 	public void addPrivilege(Privilege p)
 	{
@@ -41,6 +49,10 @@ public class BusinessService {
 	public void addResource(Resource r)
 	{
 		rdao.add(r);
+	}
+	public Resource findResource(String uri)
+	{
+		return rdao.find(uri);
 	}
 	public List<Resource> getAllResource()
 	{
@@ -58,6 +70,26 @@ public class BusinessService {
 	}
 	
 	
+	public boolean isFindUserPrivilege(User user, String uri) {
+		Resource resource = rdao.find(uri);
+		
+		if(resource == null)
+			return false;
+		
+		User u = udao.find(user.getUsername(), user.getPassword());
+		for(Role r : u.getRole())
+		{
+			for(Privilege p : r.getPrivilege())
+			{
+				if(p.getId() == resource.getPrivilege().getId())
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+		
 	
 	
 }
