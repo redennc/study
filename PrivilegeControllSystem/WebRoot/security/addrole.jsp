@@ -15,7 +15,7 @@
           角色描述:<textarea cols="20" rows="2" name="description" ></textarea><br>
           角色权限:
           <c:forEach items="${list}" var="p">
-          	${p.name}<input type="checkbox" name="privilege" value="">
+          	${p.name}<input type="checkbox" name="pid" value="${p.id}">
           </c:forEach>
     <input type="submit" value="提交" >
   </form>  
