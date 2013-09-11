@@ -45,8 +45,8 @@ public class UserServlet extends HttpServlet {
 
 	private void updateUI(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		User user = WebUtils.request2Bean(request, User.class);
-		List<Privilege> list = service.getUser(user);
+		User u = WebUtils.request2Bean(request, User.class);
+		User user = service.findUser(u);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/security/adduser.jsp").forward(request, response);
 	}
