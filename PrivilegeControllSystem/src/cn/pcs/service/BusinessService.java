@@ -21,6 +21,11 @@ public class BusinessService {
 	{
 		return udao.find(username, password);
 	}
+	public List<User> getAllUser()
+	{
+		return udao.getAll();
+	}
+	
 	
 	public void addPrivilege(Privilege p)
 	{
@@ -51,6 +56,10 @@ public class BusinessService {
 	{
 		rodao.add(role);
 	}
+	
+	
+	
+	
 }
 
 

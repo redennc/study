@@ -15,22 +15,22 @@
    			<td></td>
    			<td></td>
    			<td align="right">
-   				<a href="${pageContext.request.contextPath }/servlet/RoleServlet?method=addUI">添加角色</a>
+   				<a href="${pageContext.request.contextPath }/servlet/UserServlet?method=addUI">添加用户</a>
    			</td>
    		</tr>
    	</table>
   
 	<table width="500px" align="center" border="1">
 		<tr>
-			<td width="30%"> 角色名称 </td> <td>角色描述</td> <td>角色拥有权限</td> 
+			<td width="30%"> 用户名称 </td> <td>用户描述</td> <td>所属角色</td> 
 		</tr>
 		
-		<c:forEach items="${list}" var="ro">
+		<c:forEach items="${list}" var="u">
 		<tr>
-			<td width="20%"> ${ro.name} </td> <td>${ro.description}</td>
+			<td width="20%"> ${u.username} </td> <td>${u.description}</td>
 			<td>
-				<c:forEach items="${ro.privilege}" var="p">
-					${p.name}, 
+				<c:forEach items="${u.role}" var="r">
+					${r.name}, 
 				</c:forEach>
 	
 			</td>

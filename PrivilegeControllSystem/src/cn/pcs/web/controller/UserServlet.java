@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.pcs.domain.Privilege;
 import cn.pcs.domain.Role;
+import cn.pcs.domain.User;
 import cn.pcs.service.BusinessService;
 import cn.pcs.utils.WebUtils;
 
-public class RoleServlet extends HttpServlet {
+public class UserServlet extends HttpServlet {
 
 	private BusinessService service = new BusinessService();
 
@@ -51,9 +52,9 @@ public class RoleServlet extends HttpServlet {
 
 
 	private void getAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Role> list = service.getAllRole();
+		List<User> list = service.getAllUser();
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/security/listrole.jsp").forward(request, response);
+		request.getRequestDispatcher("/security/listuser.jsp").forward(request, response);
 	}
 
 
