@@ -27,7 +27,13 @@ public class UserDaoImpl {
 						
 			sql = "select r.* from role as r inner join role_user as ru on ru.user_id=? and ru.role_id=r.id";
 			List<Role> rlist = (List<Role>) qr.query(sql, id, new BeanListHandler(Role.class));
-			user.setRole(new HashSet<Role>(rlist));
+			
+			Set<Role> rset = new HashSet<Role>();
+			for(Role r : rlist)
+			{
+				rset.add(r);
+			}
+			user.setRole(rset);
 			return user;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -44,6 +50,15 @@ public class UserDaoImpl {
 			Object[] params = {username, password};
 			User user = (User) qr.query(sql, params, new BeanHandler(User.class));
 						
+			sql = "select r.* from role as r inner join role_user as ru on ru.user_id=? and ru.role_id=r.id";
+			List<Role> rlist = (List<Role>) qr.query(sql, user.getId(), new BeanListHandler(Role.class));
+			
+			Set<Role> rset = new HashSet<Role>();
+			for(Role r : rlist)
+			{
+				rset.add(r);
+			}
+			user.setRole(rset);
 			return user;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

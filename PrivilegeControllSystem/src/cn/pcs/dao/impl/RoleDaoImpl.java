@@ -1,17 +1,18 @@
 package cn.pcs.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import cn.pcs.domain.Privilege;
-import cn.pcs.domain.Resource;
 import cn.pcs.domain.Role;
 import cn.pcs.utils.JdbcUtils;
 
@@ -39,7 +40,7 @@ public class RoleDaoImpl {
 	
 	public void add(Role role)
 	{
-		try {
+		/*try {
 			QueryRunner qr = new QueryRunner(JdbcUtils.getDataSource());
 			String sql = "insert into role(name,description) values(?,?) ";
 			Object[] params = {role.getName(), role.getDescription()};
@@ -58,8 +59,53 @@ public class RoleDaoImpl {
 			qr.batch(sql, params2);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}*/
+		Connection conn = null;
+		PreparedStatement stm = null;
+		ResultSet rs = null;
+		try {
+			conn = JdbcUtils.getConnection();
+			String sql = "insert into role(name,description) values(?,?) ";
+			stm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stm.setString(1, role.getName());
+			stm.setString(2, role.getDescription());
+			stm.executeUpdate();
+			rs = stm.getGeneratedKeys();
+			int lastKey = rs.next() ? rs.getInt(1) : 0;
+			
+			sql = "insert into role_privilege(role_id,privilege_id) values(?,?)";
+			stm = conn.prepareStatement(sql);
+			for(Privilege p : role.getPrivilege())
+			{
+				stm.setInt(1, lastKey);
+				stm.setInt(2, p.getId());
+				stm.addBatch();
+			}
+			stm.executeBatch();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}finally{
+			if(conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			
+			if(stm != null)
+			try {
+				stm.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+			
+			if(rs != null)
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
 		}
-		
 	}
 }
 
