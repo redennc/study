@@ -1,6 +1,7 @@
 package cn.pcs.service;
 
 import java.util.List;
+import java.util.Set;
 
 import cn.pcs.dao.impl.PrivilegeDaoImpl;
 import cn.pcs.dao.impl.ResourceDaoImpl;
@@ -76,12 +77,14 @@ public class BusinessService {
 		if(resource == null)
 			return false;
 		
+		Set<Role> roles = rodao.getRolesByPrivilegeId(resource.getPrivilege().getId());
 		User u = udao.find(user.getUsername(), user.getPassword());
+
 		for(Role r : u.getRole())
 		{
-			for(Privilege p : r.getPrivilege())
+			for(Role r2 : roles)
 			{
-				if(p.getId() == resource.getPrivilege().getId())
+				if(r.getId() == r2.getId())
 				{
 					return true;
 				}

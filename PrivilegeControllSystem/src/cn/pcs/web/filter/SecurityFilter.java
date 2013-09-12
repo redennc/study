@@ -20,16 +20,15 @@ public class SecurityFilter implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
-		HttpSession session = request.getSession(false);
-		if(session == null)
+		User user = (User) request.getSession().getAttribute("user");
+		if(user == null)
 		{
 			request.setAttribute("message", "请先登录");
-			request.getRequestDispatcher("/message").forward(request, res);
+			request.getRequestDispatcher("/message.jsp").forward(request, res);
 			chain.doFilter(request, res);
 			return;
 		}		
 		
-		User user = (User) session.getAttribute("user");
 		BusinessService service = new BusinessService();
 		String uri = request.getRequestURI();
 		
@@ -42,7 +41,7 @@ public class SecurityFilter implements Filter {
 		if(!service.isFindUserPrivilege(user, uri))
 		{
 			request.setAttribute("message", "您不具有 该权限");
-			request.getRequestDispatcher("/message").forward(request, res);
+			request.getRequestDispatcher("/message.jsp").forward(request, res);
 			chain.doFilter(request, res);
 			return;
 		}

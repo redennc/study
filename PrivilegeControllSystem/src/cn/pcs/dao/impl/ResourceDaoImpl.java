@@ -52,16 +52,16 @@ public class ResourceDaoImpl {
 		try {
 			QueryRunner qr = new QueryRunner(JdbcUtils.getDataSource());
 			String sql = "select * from resource where uri=?";
-			Map<String,String> map = (Map<String,String>) qr.query(sql, uri, new MapHandler());
+			Map map = (Map) qr.query(sql, uri, new MapHandler());
 
 			if(map != null)
 			{
 				Resource r = new Resource();
-				r.setDescription(map.get("description"));
-				r.setId(Integer.parseInt(map.get("id")));
-				r.setUri(map.get("uri"));
+				r.setDescription((String) map.get("description"));
+				r.setId((Integer) map.get("id"));
+				r.setUri((String) map.get("uri"));
 				Privilege p =new Privilege();
-				p.setId(Integer.parseInt(map.get("privilege_id")));
+				p.setId((Integer) map.get("privilege_id"));
 				r.setPrivilege(p);
 				return r;
 			}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="dtdgf"
+  id="myeclipse.1378452953156"
+  context-root="/dtdgf"
+  j2ee-spec="5.0"
+  archive="dtdgf.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

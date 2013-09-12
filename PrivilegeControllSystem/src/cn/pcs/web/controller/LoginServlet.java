@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
 		BusinessService service = new BusinessService();
 		
 		
-		if(service.findUser(user.getUsername(), user.getPassword()) == null)
+		if(service.findUser(user.getUsername(), user.getPassword()) == null)  
 		{
 			request.setAttribute("message", "用户或密码不正确");
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);

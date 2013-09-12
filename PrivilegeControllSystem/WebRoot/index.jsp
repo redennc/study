@@ -28,5 +28,6 @@
  </c:choose>
   <a href="${pageContext.request.contextPath}/manager/fahuo.jsp">发货</a>
   <a href="${pageContext.request.contextPath}/manager/dingdan.jsp">订单</a>
+  <a href="${pageContext.request.contextPath}/manager/xxx.jsp">xxxxx</a>
   </body>
 </html>
