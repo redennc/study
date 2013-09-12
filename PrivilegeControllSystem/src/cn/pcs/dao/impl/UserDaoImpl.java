@@ -65,6 +65,7 @@ public class UserDaoImpl {
 			{
 				params[i][0]=r.getId();
 				params[i][1]=uid;
+				i++;
 			}
 			sql = "insert into role_user set role_id=?,user_id=?";
 			qr.batch(sql, params);

@@ -16,7 +16,7 @@
 		原先角色: 
 			<c:forEach items="${user.role}" var="r">
 				${r.name} ,
-			</c:forEach>
+			</c:forEach><br/>
 	              修改角色: 
 	        <c:forEach items="${rlist}" var="role">
 	        	${role.name} <input type="checkbox" name="rid" value="${role.id}" >

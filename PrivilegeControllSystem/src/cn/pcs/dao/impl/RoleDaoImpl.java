@@ -44,8 +44,8 @@ public class RoleDaoImpl {
 			String sql = "insert into role(name,description) values(?,?) ";
 			Object[] params = {role.getName(), role.getDescription()};
 			qr.update(sql, params);
-			long nowtype= (Long)qr.query( "SELECT LAST_INSERT_ID()", new ScalarHandler());//===========================
-			
+			//long nowtype= (Long)qr.query( "SELECT LAST_INSERT_ID()", new ScalarHandler());//===========================
+			long nowtype= (Long)qr.query( "SELECT LAST_INSERT_ID()", new ScalarHandler());
 			Object[][] params2 = new Object[role.getPrivilege().size()][2];
 			int i=0;
 			for(Privilege p : role.getPrivilege())

@@ -26,6 +26,7 @@
  		欢迎 ${user.username} 登陆
  	</c:otherwise>
  </c:choose>
-  
+  <a href="${pageContext.request.contextPath}/manager/fahuo.jsp">发货</a>
+  <a href="${pageContext.request.contextPath}/manager/dingdan.jsp">订单</a>
   </body>
 </html>
