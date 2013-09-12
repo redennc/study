@@ -1,17 +1,19 @@
 package cn.pcs.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
+
+import com.mysql.jdbc.Statement;
 
 import cn.pcs.domain.Privilege;
-import cn.pcs.domain.Resource;
 import cn.pcs.domain.Role;
 import cn.pcs.utils.JdbcUtils;
 
@@ -39,7 +41,7 @@ public class RoleDaoImpl {
 	
 	public void add(Role role)
 	{
-		try {
+		/*try {
 			QueryRunner qr = new QueryRunner(JdbcUtils.getDataSource());
 			String sql = "insert into role(name,description) values(?,?) ";
 			Object[] params = {role.getName(), role.getDescription()};
@@ -58,8 +60,21 @@ public class RoleDaoImpl {
 			qr.batch(sql, params2);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}*/
+		try {
+		Connection conn = JdbcUtils.getConnection();
+		String sql = "insert into role(name,description) values(?,?) ";
+		PreparedStatement stm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		stm.setString(1, role.getName());
+		stm.setString(2, role.getDescription());
+		stm.executeUpdate();
+		ResultSet rs = stm.getGeneratedKeys();
+		int lastKey=0;
+		if(rs.next())
+			lastKey = rs.getInt(1);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		}
-		
 	}
 }
 
