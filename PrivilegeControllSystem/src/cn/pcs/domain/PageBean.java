@@ -50,7 +50,7 @@ public class PageBean {
 		int pageBarEndIndex = 1;
 		if((currentPageIndex - pageBarLength/2) < 1)
 		{
-			pageBarEndIndex = pageBarLength;
+			pageBarEndIndex = pageBarLength>maxPageBarLength ? maxPageBarLength : pageBarLength;
 		}else if(((currentPageIndex - pageBarLength/2)+pageBarLength-1) > maxPageBarLength)
 		{
 			pageBarStartIndex = currentPageIndex - pageBarLength/2;
